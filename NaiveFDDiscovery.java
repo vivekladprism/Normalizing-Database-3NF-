@@ -38,11 +38,8 @@ public class NaiveFDDiscovery
 	{
 		relation = relations.split(",");
 		outputFileName = outputFileNames.split(",");
-		
-		//System.out.println(relationName);
-		//System.out.println(setOfAttributes);
-
 	}
+
 	public static void naiveFDDApproach(int m) throws SQLException, IOException
 	{
 		String query = "";
@@ -105,7 +102,7 @@ public class NaiveFDDiscovery
 							else
 								printWriter.write("\n"+setString+ "->" + currentAttribute);
 							fileEmpty = false;
-							//System.out.println(setString+ "->" + currentAttribute);
+							
 							Set<String> rhs;
 							if(dependency.containsKey(setString))
 							{
@@ -126,6 +123,7 @@ public class NaiveFDDiscovery
 		printWriter.close();
 		fileWriter.close();
 	}
+
 	public static void readInputFromCommandLine(String args[])
 	{
 		url = args[0];
@@ -133,12 +131,14 @@ public class NaiveFDDiscovery
 		password = args[2];
 		relations = args[3];
 		outputFileNames = args[4];
-		
 	}
+
 	public static void connectToSQL() throws SQLException
 	{
-		connection = (Connection) DriverManager.getConnection(url, userName, password);
+		connection = (Connection) DriverManager
+				.getConnection(url, userName, password);
 	}
+
 	public static void setupDBConnection()
 	{
 		String sql = "USE" + "";
@@ -159,16 +159,14 @@ public class NaiveFDDiscovery
 		attributes = new String[setOfAttributes.size()];
 		numberOfAttributes = setOfAttributes.size();
 		System.out.println(setOfAttributes);
-		//System.out.println(att.size());
+
 		for(String column : setOfAttributes)
 		{
 			attributes[i] = column;
-			//System.out.println(attributes[i]);
 			i++;
-		}
-		
-		
+		}		
 	}
+
 	public static void main(String[] args) throws SQLException, IOException
 	{
 		readInputFromCommandLine(args);
@@ -178,16 +176,10 @@ public class NaiveFDDiscovery
 		
 		for(int i = 0 ; i < relation.length;i++)
 		{
-		
 			findAttributes(i);
 			naiveFDDApproach(i);
-			//rs.close();
 		}
-		
 		connection.close();
-		//ps.close();
-		//rs.close();
-		
 	}
 	
 }
